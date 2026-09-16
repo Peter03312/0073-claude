@@ -1,0 +1,57 @@
+# 翻页动画同帧证明所：web / api 常驻服务 + verify 一次性服务
+name: flipbook-proof
+
+services:
+  api:
+    build: ./backend
+    restart: unless-stopped
+    environment:
+      DB_PATH: /data/proofs.db
+    volumes:
+      - api_data:/data
+    ports:
+      - "${API_PORT:-8000}:8000"
+    healthcheck:
+      test:
+        - CMD
+        - python
+        - -c
+        - "import urllib.request;urllib.request.urlopen('http://127.0.0.1:8000/api/health', timeout=3)"
+      interval: 5s
+      timeout: 4s
+      retries: 12
+      start_period: 5s
+
+  web:
+    build: ./frontend
+    restart: unless-stopped
+    depends_on:
+      api:
+        condition: service_started
+    ports:
+      - "${WEB_PORT:-8080}:80"
+    healthcheck:
+      test: ["CMD", "wget", "-q", "-O", "/dev/null", "http://127.0.0.1/"]
+      interval: 10s
+      timeout: 3s
+      retries: 6
+      start_period: 5s
+
+  # 一次性服务：跑后端测试、构建前端、对 api/web 冒烟，完成后退出
+  verify:
+    build:
+      context: .
+      dockerfile: verify/Dockerfile
+    depends_on:
+      api:
+        condition: service_healthy
+      web:
+        condition: service_healthy
+    environment:
+      API_URL: http://api:8000
+      WEB_URL: http://web
+      EXAMPLES_DIR: /work/examples
+    restart: "no"
+
+volumes:
+  api_data:

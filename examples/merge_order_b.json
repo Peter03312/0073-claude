@@ -1,0 +1,56 @@
+{
+  "title": "合并顺序乙：铃铛→尾巴→翅膀",
+  "tracks": [
+    {
+      "id": "翅膀",
+      "period": "4",
+      "phase": "1"
+    },
+    {
+      "id": "尾巴",
+      "period": "6",
+      "phase": "3"
+    },
+    {
+      "id": "铃铛",
+      "period": "5",
+      "phase": "2"
+    }
+  ],
+  "cards": [
+    {
+      "type": "source",
+      "track": "翅膀"
+    },
+    {
+      "type": "source",
+      "track": "尾巴"
+    },
+    {
+      "type": "source",
+      "track": "铃铛"
+    },
+    {
+      "type": "combine",
+      "left": 2,
+      "right": 1,
+      "witness": {
+        "u": "-1",
+        "v": "1"
+      }
+    },
+    {
+      "type": "combine",
+      "left": 3,
+      "right": 0,
+      "witness": {
+        "u": "1",
+        "v": "-7"
+      }
+    },
+    {
+      "type": "normalize",
+      "card": 4
+    }
+  ]
+}

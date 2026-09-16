@@ -1,0 +1,38 @@
+{
+  "title": "兼容示例：第 9 帧首次同帧",
+  "tracks": [
+    {
+      "id": "翅膀",
+      "period": "4",
+      "phase": "1"
+    },
+    {
+      "id": "尾巴",
+      "period": "6",
+      "phase": "3"
+    }
+  ],
+  "cards": [
+    {
+      "type": "source",
+      "track": "翅膀"
+    },
+    {
+      "type": "source",
+      "track": "尾巴"
+    },
+    {
+      "type": "combine",
+      "left": 0,
+      "right": 1,
+      "witness": {
+        "u": "-1",
+        "v": "1"
+      }
+    },
+    {
+      "type": "normalize",
+      "card": 2
+    }
+  ]
+}

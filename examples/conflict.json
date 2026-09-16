@@ -1,0 +1,30 @@
+{
+  "title": "冲突示例：奇偶永远错开",
+  "tracks": [
+    {
+      "id": "左手",
+      "period": "4",
+      "phase": "0"
+    },
+    {
+      "id": "右手",
+      "period": "6",
+      "phase": "1"
+    }
+  ],
+  "cards": [
+    {
+      "type": "source",
+      "track": "左手"
+    },
+    {
+      "type": "source",
+      "track": "右手"
+    },
+    {
+      "type": "contradiction",
+      "left": 0,
+      "right": 1
+    }
+  ]
+}
